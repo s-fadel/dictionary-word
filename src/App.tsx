@@ -12,7 +12,7 @@ const App = () => {
 
   const handleSearch = async () => {
     if (word.trim() === "") {
-      return; // Undvik att göra en förfrågan om sökordet är tomt
+      return; // Undviker att göra en förfrågan om sökordet är tomt
     }
     const apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
     const response = await fetch(apiUrl);
@@ -67,19 +67,19 @@ const App = () => {
             <h3>{dictionaryWord[0]?.word}</h3>
 
             {dictionaryWord[0]?.phonetics.length > 0 ? (
-  <div>
-   {dictionaryWord[0]?.phonetics
-      .filter((phonetic) => phonetic.audio) // Filtrera bort ljudobjekt med tomma audio-strängar
-      .map((phonetic, phoneticIndex) => (
-      <button
-        key={phoneticIndex}
-        onClick={() => playAudio(phonetic.audio)}
-      >
-        <FontAwesomeIcon icon={faVolumeHigh} />
-      </button>
-    ))}
-  </div>
-) : null}
+              <div>
+                {dictionaryWord[0]?.phonetics
+                  .filter((phonetic) => phonetic.audio)
+                  .map((phonetic, phoneticIndex) => (
+                    <button
+                      key={phoneticIndex}
+                      onClick={() => playAudio(phonetic.audio)}
+                    >
+                      <FontAwesomeIcon icon={faVolumeHigh} />
+                    </button>
+                  ))}
+              </div>
+            ) : null}
           </div>
           <div className="info-typed-word">
             <p>{dictionaryWord[0]?.meanings[0].partOfSpeech}</p>
