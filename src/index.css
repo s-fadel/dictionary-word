@@ -1,13 +1,107 @@
 body {
-  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: bisque;
+  color: black;
 }
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+  h2 {
+    font-size: 4rem;
+  }
+
+  .App {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .App-header {
+    width: 100%;
+    margin-top: 50px;
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  .searchbar-dictionary {
+    padding: 5px;
+    width: 30%;
+    border: none;
+    outline: none;
+    background-color: bisque;
+    border-bottom: 2px solid black;
+    font-size: 16px;
+
+  }
+
+  #search-btn {
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    margin-left: 20px;
+    padding: 10px 0px;
+    width: 6%;
+    background-color: black;
+    color: white;
+
+
+  }
+
+  .dictionary-result {
+    width: 38%;
+    margin-top: 30px;
+  }
+
+  .dictionary-result h3 {
+    font-size: 24px;
+
+  }
+
+  .dictionary-result .typed-word {
+    display: flex;
+    justify-content: space-between;
+
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: black;
+    font-size: 18px;
+  }
+
+  .dictionary-result .info-typed-word {
+    display: flex;
+    flex-direction: row;
+    color: grey;
+    font-size: 14px;
+  }
+
+  
+  .word-description .word-example {
+    color: lightslategrey;
+  }
+
+  .word-example {
+    font-style: italic;
+    border-left: 4px solid black;
+    padding-left: 1rem;
+  }
+
+  .error-message {
+    max-width: 40%;
+    color: red;
+    font-style: italic;
+    font-size: 12px;
+  }
