@@ -11,7 +11,7 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState<ErrorResponse | null>(null);
 
   const handleSearch = async () => {
-    if (word.trim() === "") {
+    if (!word) {
       return; // Undviker att göra en förfrågan om sökordet är tomt
     }
     const apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
@@ -21,13 +21,11 @@ const App = () => {
       if (response.ok) {
         const data: WordData[] = await response.json();
         setDictionaryWord(data);
-        console.log("dictionary", data);
       } else {
         const errorResponse: ErrorResponse = await response.json();
         setErrorMessage(errorResponse);
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
       setErrorMessage({
         message: "Sorry we could not retrieve data at the moment.",
         resolution:
@@ -42,6 +40,7 @@ const App = () => {
     audio.play();
   };
 
+  console.log(dictionaryWord && dictionaryWord.length);
   return (
     <div className="App">
       <h2>Hello.</h2>
@@ -53,16 +52,16 @@ const App = () => {
           onChange={(e) => setWord(e.target.value)}
           value={word || ""}
         />{" "}
-        <button id="search-btn" onClick={handleSearch}>
+        <button id="search-btn" onClick={handleSearch} data-testid="search-btn">
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </button>
       </div>
       <div className="error-message">
-        {errorMessage?.message ? <p>{errorMessage.message}</p> : null}
+        {errorMessage?.message ? <p data-testid="error-message">{errorMessage.message}</p> : null}
       </div>
 
       {dictionaryWord && dictionaryWord.length > 0 ? (
-        <div className="dictionary-result" id="result">
+        <div className="dictionary-result" id="result" data-testid="result">
           <div className="typed-word">
             <h3>{dictionaryWord[0]?.word}</h3>
 
