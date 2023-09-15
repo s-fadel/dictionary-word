@@ -14,7 +14,7 @@ To get started with the Awesome Dictionary App, follow these simple steps:
 
 1. Clone this repository to your local machine. 🖥️
 2. Install the required dependencies using `npm install`. 📦
-3. Start the development server with `npm start`. 🚀
+3. Start the development server with `npm run start`. 🚀
 4. Open your favorite web browser and go to `http://localhost:3000`. 🌐
 5. Enter a word in the search bar, click the search button, and explore! 🚀
 
