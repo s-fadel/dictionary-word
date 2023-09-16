@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
@@ -11,7 +11,13 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState<ErrorResponse | null>(null);
 
   const handleSearch = async () => {
-    if (!word) {
+    if (!word || word?.trim() === '') {
+      setErrorMessage({
+        message: "The search field cannot be left empty. Please enter a word.",
+        resolution:
+          "You can try the search again with a word",
+        title: "No Definitions Found",
+      })
       return; // Undviker att göra en förfrågan om sökordet är tomt
     }
     const apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
@@ -40,7 +46,6 @@ const App = () => {
     audio.play();
   };
 
-  console.log(dictionaryWord && dictionaryWord.length);
   return (
     <div className="App">
       <h2>Hello.</h2>
@@ -72,7 +77,8 @@ const App = () => {
                   .map((phonetic, phoneticIndex) => (
                     <button
                       key={phoneticIndex}
-                      onClick={() => playAudio(phonetic.audio)}
+                      data-testid={`${phonetic?.audio}-${phoneticIndex}`}
+                      onClick={() => playAudio(phonetic?.audio)}
                     >
                       <FontAwesomeIcon icon={faVolumeHigh} />
                     </button>
@@ -81,14 +87,14 @@ const App = () => {
             ) : null}
           </div>
           <div className="info-typed-word">
-            <p>{dictionaryWord[0]?.meanings[0].partOfSpeech}</p>
+            <p>{dictionaryWord[0]?.meanings[0]?.partOfSpeech}</p>
             <p>{dictionaryWord[0]?.phonetic}</p>
           </div>
           <p className="word-description">
-            {dictionaryWord[0]?.meanings[0].definitions[0].definition}
+            {dictionaryWord[0]?.meanings[0]?.definitions[0]?.definition}
           </p>
           <p className="word-example">
-            {dictionaryWord[0]?.meanings[0].definitions[0].example}
+            {dictionaryWord[0]?.meanings[0]?.definitions[0]?.example}
           </p>
         </div>
       ) : null}
