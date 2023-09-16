@@ -14,6 +14,7 @@ test('renders App component', () => {
 });
 
 test('handles search success', async () => {
+  // Mocka response datan
   global.fetch = jest.fn().mockResolvedValue({
     json: async () => ([{ word: 'test', phonetic: 'test', phonetics: [{ audio: 'audio-sound'}], meanings: [] }]),
     ok: true,
@@ -21,9 +22,11 @@ test('handles search success', async () => {
 
   render(<App />);
 
+  // Hitta sök-input och knappen
   const searchInput = screen.getByPlaceholderText('Search for word...');
   const searchButton = screen.getByTestId('search-btn');
 
+  // Simulera användarens inmatning och klick på sökknappen
   act(() => {
     fireEvent.change(searchInput, { target: { value: 'test' } });
     fireEvent.click(searchButton);
@@ -35,12 +38,14 @@ test('handles search success', async () => {
     expect(screen.queryByTestId('audio-sound-0')).toBeInTheDocument();
   });
 
+  // Kontrollera att fetch-funktionen har anropats med rätt URL
   expect(global.fetch).toHaveBeenCalledWith(
     'https://api.dictionaryapi.dev/api/v2/entries/en/test'
   );
 });
 
 test('handles search error', async () => {
+  // Mocka response datan
   global.fetch = jest.fn().mockImplementation(() =>
     Promise.resolve({
       json: async () => ({ message: 'Error message' }),
@@ -92,7 +97,7 @@ test('should show error message and do not call api when user search with empty 
   });
 
 
-  // Kontrollera att fetch-funktionen har anropats med rätt URL
+  // Kontrollera att fetch-funktionen inte har anropats
   expect(global.fetch).not.toHaveBeenCalledWith(
     'https://api.dictionaryapi.dev/api/v2/entries/en/'
   );
